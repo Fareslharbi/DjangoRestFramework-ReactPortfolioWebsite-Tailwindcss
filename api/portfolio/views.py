@@ -1,10 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
-from .serializers import UserSerializer
 
 from .models import Education, Work, Portfolio
-from .serializers import EducationSerializer, WorkSerializer, PortfolioSerializer
+from .serializers import UserSerializer, EducationSerializer, WorkSerializer, PortfolioSerializer
 class UserViewSet(ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.

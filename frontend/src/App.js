@@ -1,11 +1,40 @@
+import { useRef, useEffect, useState } from 'react';
 import Nav from './components/nav'
 import './App.css';
-import { useRef } from 'react';
+
 function App() {
+  const [education, setEducation] = useState([])
+  const [work, setWork] = useState([])
+  const [portfolio, setPortfolio] = useState([])
+
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+
   const homeRef = useRef(null)
   const educationRef = useRef(null)
   const workRef = useRef(null)
   const portfolioRef = useRef(null)
+
+  const getData = async () => {
+    const educationResponse = await fetch('/education.json')
+    const educationData = await educationResponse.json()
+    setEducation(educationData)
+
+    const workResponse = await fetch('/work.json')
+    const workData = await workResponse.json()
+    setWork(workData)
+
+    const portfolioResponse = await fetch('/portfolio.json')
+    const portfolioData = await portfolioResponse.json()
+    setPortfolio(portfolioData)
+
+    // console.log(educationData)
+    // console.log(workData)
+    // console.log(portfolioData)
+  }
   return (
     <>
       <Nav homeRef={homeRef} educationRef={educationRef} workRef={workRef} portfolioRef={portfolioRef}/>
@@ -32,22 +61,14 @@ function App() {
         </div>
         
 
-        <div className='grid md:grid-cols-3 grid-cols-1 gap-4 mx5'>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>School, Computer Science</h3>
-            <h5 className='py-2'>2017 - 2020</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>School, Computer Science</h3>
-            <h5 className='py-2'>2017 - 2020</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>School, Computer Science</h3>
-            <h5 className='py-2'>2017 - 2020</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
+        <div className='grid md:grid-cols-2 grid-cols-1 gap-4 mx5'>
+          {education && education.map(e => (
+            <div key={e.id} className='border rounded-sm p-3 shadow'>
+              <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>{e.school}, {e.degree}</h3>
+              <h5 className='py-2'>{e.years}</h5>
+              <p>{e.description}</p>
+            </div>
+            ))}
         </div>
       </div>
 
@@ -59,21 +80,13 @@ function App() {
         
 
         <div className='grid md:grid-cols-3 gird-cols-1 gap-4 mx5'>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>Company, Software Engineer</h3>
-            <h5 className='py-2'>2017 - 2020</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+					{work && work.map(w => (
+						<div key={w.id} className='border rounded-sm p-3 shadow'>
+            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>{w.company}, {w.job_des}</h3>
+            <h5 className='py-2'>{w.years}</h5>
+            <p>{w.description}</p>
           </div>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>Company, Software Engineer</h3>
-            <h5 className='py-2'>2017 - 2020</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>Company, Software Engineer</h3>
-            <h5 className='py-2'>2017 - 2020</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
+					))}
         </div>
       </div>
 
@@ -85,21 +98,13 @@ function App() {
         
 
         <div className='grid md:grid-cols-3 grid-cols-1 gap-4 mx5'>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>Tilte</h3>
-            <h5 className='py-2 text-blue-500 hover:text-blue-700 transition cursor-pointer'>View Code</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          {portfolio && portfolio.map(p => (
+						<div key={p.id} className='border rounded-sm p-3 shadow'>
+							<h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>{p.title}</h3>
+							<a className='py-2 text-blue-500 hover:text-blue-700 transition cursor-pointer' href={p.url} rel='noreferrer' target='_blank'>View Code</a>
+							<p>{p.description}</p>
           </div>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>Tilte</h3>
-            <h5 className='py-2 text-blue-500 hover:text-blue-700 transition cursor-pointer'>View Code</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-          <div className='border rounded-sm p-3 shadow'>
-            <h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>Tilte</h3>
-            <h5 className='py-2 text-blue-500 hover:text-blue-700 transition cursor-pointer'>View Code</h5>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
+					))}
         </div>
       </div>
     </>
