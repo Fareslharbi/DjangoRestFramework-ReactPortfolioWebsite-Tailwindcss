@@ -1,6 +1,8 @@
 from django.db import models
+from pathlib import Path
 
-
+import os
+import datetime
 class Education(models.Model):
     school = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
@@ -16,9 +18,15 @@ class Work(models.Model):
     description = models.TextField()
     ordinal = models.IntegerField()
 
+
+def filepath(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime("%Y%m%d%H:%M:%S")
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('uploads/', filename)
 class Portfolio(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='uploads/')
+    image = models.ImageField(upload_to=filepath, null=True, blank=True)
     url = models.URLField()
     ordinal = models.IntegerField()

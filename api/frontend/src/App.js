@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
-import Nav from './components/nav'
+import Nav from './components/nav';
 import './App.css';
-
+import logo from './logo.png'
 function App() {
   const [education, setEducation] = useState([])
   const [work, setWork] = useState([])
@@ -19,19 +19,19 @@ function App() {
   const portfolioRef = useRef(null)
 
   const getData = async () => {
-    const educationResponse = await fetch('/education.json')
+    const educationResponse = await fetch('api/education.json')
     const educationData = await educationResponse.json()
     setEducation(educationData)
 
-    const workResponse = await fetch('/work.json')
+    const workResponse = await fetch('api/work.json')
     const workData = await workResponse.json()
     setWork(workData)
 
-    const portfolioResponse = await fetch('/portfolio.json')
+    const portfolioResponse = await fetch('api/portfolio.json')
     const portfolioData = await portfolioResponse.json()
     setPortfolio(portfolioData)
 
-    // console.log(educationData)
+    console.log(educationData)
     // console.log(workData)
     // console.log(portfolioData)
   }
@@ -46,7 +46,7 @@ function App() {
         </div>
 
         <div className='flex md:flex-row flex-col space-between md:w-2/4 m-auto py-5 border rounded-sm ppx-3 shadow'>
-          <img alt='profile' className='rounded-full w-64 h-64 mx-8' src='./logo.png' />
+          <img alt='profile' className='rounded-full w-64 h-64 mx-8' src={logo} />
           <div>
             <h5 className='text-2xl text-cyan-900 border-b-2 border-slate-300'>Biography</h5>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -103,6 +103,7 @@ function App() {
 							<h3 className='text-lg border-b-2 border-slate-300 text-slate-800'>{p.title}</h3>
 							<a className='py-2 text-blue-500 hover:text-blue-700 transition cursor-pointer' href={p.url} rel='noreferrer' target='_blank'>View Code</a>
 							<p>{p.description}</p>
+              <img alt='profile' className='rounded-full w-64 h-64 mx-8' src={p.image} />
           </div>
 					))}
         </div>
