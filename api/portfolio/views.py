@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
 
 from .models import Education, Work, Portfolio
 from .serializers import UserSerializer, EducationSerializer, WorkSerializer, PortfolioSerializer
@@ -10,7 +10,7 @@ class UserViewSet(ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 class EducationViewSet(ModelViewSet):

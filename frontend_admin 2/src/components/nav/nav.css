@@ -22,3 +22,7 @@ ul{
 .sections.main{
     font-size:  xx-large;
 }
+
+li{
+    cursor: pointer;
+}
