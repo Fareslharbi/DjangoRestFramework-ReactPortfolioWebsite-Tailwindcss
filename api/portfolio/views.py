@@ -19,7 +19,7 @@ class EducationViewSet(ModelViewSet):
     """
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 class WorkViewSet(ModelViewSet):
     """
@@ -27,7 +27,7 @@ class WorkViewSet(ModelViewSet):
     """
     queryset = Work.objects.all()
     serializer_class = WorkSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 class PortfolioViewSet(ModelViewSet):
     """
@@ -35,4 +35,4 @@ class PortfolioViewSet(ModelViewSet):
     """
     queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
